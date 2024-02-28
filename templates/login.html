@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+
+    <!-- Agregado el enlace a Bootstrap CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- Agregado el enlace a Font Awesome para los íconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    <style>
+        body {
+            background-image: url('https://previews.123rf.com/images/tuulijumala/tuulijumala1305/tuulijumala130500117/19975783-resumen-c%C3%B3digo-binario-fondo-cian-3d.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        form {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .error-message {
+            color: red;
+        }
+
+        /* Ajustes específicos para el botón "Mostrar" */
+        .btn-show-password {
+            margin-top: 8px; /* Ajusta la posición del botón mostrar/ocultar */
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <form method="post" class="col-lg-4">
+        {{ form.csrf_token }}
+        <h1>Login</h1>
+        <div class="form-group">
+            <label for="username">Usuario:</label>
+            {{ form.username(class="form-control") }}
+            {% for error in form.username.errors %}
+                <p class="error-message">{{ error }}</p>
+            {% endfor %}
+        </div>
+        <div class="form-group">
+            <label for="password">Contraseña:</label>
+            <div class="input-group">
+                {{ form.password(class="form-control") }}
+                <div class="input-group-append">
+                    <button type="button" class="btn btn-outline-secondary btn-show-password" onclick="togglePassword()">
+                        <i class="far fa-eye"></i>
+                    </button>
+                </div>
+            </div>
+            {% for error in form.password.errors %}
+                <p class="error-message">{{ error }}</p>
+            {% endfor %}
+        </div>
+        <button type="submit" class="btn btn-primary">Iniciar sesión</button>
+    </form>
+
+    <!-- Agregado el script de Bootstrap JS y Font Awesome -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+
+    <script>
+        function togglePassword() {
+            var passwordInput = document.getElementById("password");
+            var toggleButton = document.querySelector(".btn-show-password");
+
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                toggleButton.innerHTML = '<i class="far fa-eye-slash"></i>';
+            } else {
+                passwordInput.type = "password";
+                toggleButton.innerHTML = '<i class="far fa-eye"></i>';
+            }
+        }
+    </script>
+</body>
+</html>

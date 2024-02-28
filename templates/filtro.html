@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Agregado el enlace a Bootstrap CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <style>
+        body {
+            background-image: url('https://previews.123rf.com/images/tuulijumala/tuulijumala1305/tuulijumala130500117/19975783-resumen-c%C3%B3digo-binario-fondo-cian-3d.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        form {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .alert {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <form method="post" action="{{ url_for('filtro') }}" class="col-lg-4">
+        {{ email_form.csrf_token }}
+        <h1>Filtro de Email</h1>
+        
+        {% if email_form.email_pattern.errors %}
+            <div class="alert alert-danger" role="alert">
+                {% for error in email_form.email_pattern.errors %}
+                    <strong>Error:</strong> {{ error }}
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <div class="form-group">
+            <label for="email_pattern">Expresión Regular para Email:</label>
+            {{ email_form.email_pattern(class="form-control", autocomplete="off") }}
+        </div>
+
+        <button type="submit" class="btn btn-primary">Buscar</button>
+    </form>
+
+    <!-- Agregado el script de Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
